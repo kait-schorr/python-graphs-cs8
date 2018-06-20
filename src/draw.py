@@ -28,7 +28,7 @@ graph.node_renderer.data_source.add(node_indices, 'index')
 graph.node_renderer.data_source.add(color_list, 'color')
 graph.node_renderer.data_source.add(value_list, 'value')
 
-graph.node_renderer.glyph = Oval(height=20, width=20, fill_color='color')
+graph.node_renderer.glyph = Oval(height=30, width=30, fill_color='color')
 
 
 graph.edge_renderer.data_source.data = dict(
@@ -42,8 +42,8 @@ values = [v.value for v in graph_data.vertexes]
 
 labelData = ColumnDataSource(data=dict(x=x, y=y, values=values))
 
-labels = LabelSet(x='x', y='y', text='values', level='glyph', x_offset=5,
-                  y_offset=5, source=labelData, render_mode='canvas')
+labels = LabelSet(x='x', y='y', text='values', level='glyph', x_offset=-6,
+                  y_offset=-6, source=labelData, render_mode='canvas')
 graph_layout = dict(zip(node_indices, zip(x, y)))
 graph.layout_provider = StaticLayoutProvider(graph_layout=graph_layout)
 
@@ -65,9 +65,9 @@ graph.edge_renderer.data_source.data['xs'] = xs
 graph.edge_renderer.data_source.data['ys'] = ys
 
 
-plot.add_layout(labels)
 print(labels)
 plot.renderers.append(graph)
+plot.add_layout(labels)
 
 output_file('graph.html')
 show(plot)

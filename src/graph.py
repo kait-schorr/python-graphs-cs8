@@ -24,9 +24,12 @@ class Graph:
         debug_edge_1 = Edge(debug_vertex_2)
         debug_edge_2 = Edge(debug_vertex_3)
         debug_edge_3 = Edge(debug_vertex_3)
+        debug_edge_4 = Edge(debug_vertex_3)
+
         debug_vertex_1.edges.append(debug_edge_1)
         debug_vertex_2.edges.append(debug_edge_2)
         debug_vertex_4.edges.append(debug_edge_3)
+        debug_vertex_1.edges.append(debug_edge_4)
 
         self.vertexes.extend(
             [debug_vertex_1, debug_vertex_2, debug_vertex_3, debug_vertex_4])
