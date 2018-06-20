@@ -2,7 +2,7 @@ import math
 
 from bokeh.io import show, output_file
 from bokeh.plotting import figure
-from bokeh.models import GraphRenderer, StaticLayoutProvider, Oval
+from bokeh.models import ColumnDataSource, GraphRenderer, StaticLayoutProvider, Oval, LabelSet
 
 from graph import *
 
@@ -13,9 +13,11 @@ print(graph_data.vertexes[0].pos)
 N = len(graph_data.vertexes)
 node_indices = list(range(N))
 color_list = []
+value_list = []
 for vertex in graph_data.vertexes:
     color_list.append(vertex.color)
-print(color_list)
+    value_list.append(vertex.value)
+
 
 plot = figure(title='Graph Layout Demonstration', x_range=(0, 500), y_range=(0, 500),
               tools='', toolbar_location=None)
@@ -24,7 +26,10 @@ graph = GraphRenderer()
 
 graph.node_renderer.data_source.add(node_indices, 'index')
 graph.node_renderer.data_source.add(color_list, 'color')
+graph.node_renderer.data_source.add(value_list, 'value')
+
 graph.node_renderer.glyph = Oval(height=20, width=20, fill_color='color')
+
 
 graph.edge_renderer.data_source.data = dict(
     start=[0]*N,
@@ -32,28 +37,36 @@ graph.edge_renderer.data_source.data = dict(
 # start of layout code
 x = [v.pos['x'] for v in graph_data.vertexes]
 y = [v.pos['y'] for v in graph_data.vertexes]
+values = [v.value for v in graph_data.vertexes]
 
+
+labelData = ColumnDataSource(data=dict(x=x, y=y, values=values))
+
+labels = LabelSet(x='x', y='y', text='values', level='glyph', x_offset=5,
+                  y_offset=5, source=labelData, render_mode='canvas')
 graph_layout = dict(zip(node_indices, zip(x, y)))
 graph.layout_provider = StaticLayoutProvider(graph_layout=graph_layout)
 
 
-def bezier(start, end, control, steps):
-    return [(1-s)**2*start + 2*(1-s)*s*control + s**2*end for s in steps]
-
-
 xs, ys = [], []
 for vertex in graph_data.vertexes:
+    xpoints, ypoints = [], []
     for edge in vertex.edges:
-        xs.extend([[vertex.pos['x'], edge.destination.pos['x']],
-                   [vertex.pos['x'], edge.destination.pos['x']]])
-        ys.extend([[vertex.pos['y'], edge.destination.pos['y']],
-                   [vertex.pos['y'], edge.destination.pos['y']]])
+        xpoints.extend([vertex.pos['x'], edge.destination.pos['x']])
+        ypoints.extend([vertex.pos['y'], edge.destination.pos['y']])
+    xs.append(xpoints)
+    ys.append(ypoints)
+
+print("XS: " + str(xs))
+print("YS: " + str(ys))
+
+
 graph.edge_renderer.data_source.data['xs'] = xs
 graph.edge_renderer.data_source.data['ys'] = ys
 
-print("XS:" + str(xs))
-print("YS:" + str(ys))
 
+plot.add_layout(labels)
+print(labels)
 plot.renderers.append(graph)
 
 output_file('graph.html')
