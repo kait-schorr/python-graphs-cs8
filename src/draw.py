@@ -3,6 +3,7 @@ import math
 from bokeh.io import show, output_file
 from bokeh.plotting import figure
 from bokeh.models import ColumnDataSource, GraphRenderer, StaticLayoutProvider, Oval, LabelSet
+from bokeh.colors.groups import *
 
 from graph import *
 
@@ -12,10 +13,10 @@ print(graph_data.vertexes[0].pos)
 
 N = len(graph_data.vertexes)
 node_indices = list(range(N))
-color_list = []
+color_list = cyan._colors[0:N]
 value_list = []
 for vertex in graph_data.vertexes:
-    color_list.append(vertex.color)
+    # color_list.append(vertex.color)
     value_list.append(vertex.value)
 
 
