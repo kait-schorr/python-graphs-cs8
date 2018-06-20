@@ -3,12 +3,12 @@ import math
 from bokeh.io import show, output_file
 from bokeh.plotting import figure
 from bokeh.models import GraphRenderer, StaticLayoutProvider, Oval
-from bokeh.palettes import Spectral8
 
 from graph import *
 
 graph_data = Graph()
 graph_data.debug_create_test_data()
+print(graph_data.vertexes[0].pos)
 
 N = len(graph_data.vertexes)
 node_indices = list(range(N))
@@ -24,7 +24,7 @@ graph = GraphRenderer()
 
 graph.node_renderer.data_source.add(node_indices, 'index')
 graph.node_renderer.data_source.add(color_list, 'color')
-graph.node_renderer.glyph = Oval(height=0.1, width=0.2, fill_color='color')
+graph.node_renderer.glyph = Oval(height=20, width=20, fill_color='color')
 
 graph.edge_renderer.data_source.data = dict(
     start=[0]*N,

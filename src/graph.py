@@ -6,7 +6,7 @@ class Edge:
 class Vertex:
     def __init__(self, value="default", **pos):
         self.value = value
-        self.color = "Red"
+        self.color = "pink"
         self.pos = pos
         self.edges = []
 
