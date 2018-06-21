@@ -93,7 +93,7 @@ class Graph:
         boxInnerOffset = (pxBox - boxInner)/2
 
         for y in range(height):
-            for x in range(x):
+            for x in range(width):
                 print(grid[y][x].pos)
                 grid[y][x].pos['x'] = x*pxBox + \
                     boxInnerOffset + random()*boxInner
