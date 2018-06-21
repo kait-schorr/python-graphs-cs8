@@ -7,6 +7,9 @@ from bokeh.colors.groups import *
 
 from graph import *
 
+WIDTH = 500
+HEIGHT = 500
+
 graph_data = Graph()
 graph_data.debug_create_test_data()
 print(graph_data.vertexes[0].pos)
@@ -20,7 +23,7 @@ for vertex in graph_data.vertexes:
     value_list.append(vertex.value)
 
 
-plot = figure(title='Graph Layout Demonstration', x_range=(0, 500), y_range=(0, 500),
+plot = figure(title='Graph Layout Demonstration', x_range=(0, WIDTH), y_range=(0, HEIGHT),
               tools='', toolbar_location=None)
 
 graph = GraphRenderer()
@@ -43,8 +46,8 @@ values = [v.value for v in graph_data.vertexes]
 
 labelData = ColumnDataSource(data=dict(x=x, y=y, values=values))
 
-labels = LabelSet(x='x', y='y', text='values', level='glyph', x_offset=-6,
-                  y_offset=-6, source=labelData, render_mode='canvas')
+labels = LabelSet(x='x', y='y', text='values', level='glyph', text_align='center',
+                  text_baseline='middle', source=labelData, render_mode='canvas')
 graph_layout = dict(zip(node_indices, zip(x, y)))
 graph.layout_provider = StaticLayoutProvider(graph_layout=graph_layout)
 
