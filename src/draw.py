@@ -12,14 +12,15 @@ HEIGHT = 500
 
 graph_data = Graph()
 graph_data.debug_create_test_data()
-print(graph_data.vertexes[0].pos)
+graph_data.bfs(graph_data.vertexes[0])
 
 N = len(graph_data.vertexes)
 node_indices = list(range(N))
-color_list = cyan._colors[0:N]
+color_list = []
+# color_list = cyan._colors[0:N]
 value_list = []
 for vertex in graph_data.vertexes:
-    # color_list.append(vertex.color)
+    color_list.append(vertex.color)
     value_list.append(vertex.value)
 
 
@@ -61,15 +62,11 @@ for vertex in graph_data.vertexes:
     xs.append(xpoints)
     ys.append(ypoints)
 
-print("XS: " + str(xs))
-print("YS: " + str(ys))
-
 
 graph.edge_renderer.data_source.data['xs'] = xs
 graph.edge_renderer.data_source.data['ys'] = ys
 
 
-print(labels)
 plot.renderers.append(graph)
 plot.add_layout(labels)
 
