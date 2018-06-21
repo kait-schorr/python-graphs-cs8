@@ -13,7 +13,9 @@ HEIGHT = 500
 graph_data = Graph()
 # graph_data.debug_create_test_data()
 graph_data.randomize(5, 5, 100)
-graph_data.bfs(graph_data.vertexes[0])
+for vertex in graph_data.vertexes:
+    if vertex.color == 'white':
+        graph_data.bfs(vertex)
 
 
 N = len(graph_data.vertexes)

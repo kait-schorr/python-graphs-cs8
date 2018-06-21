@@ -1,4 +1,5 @@
 from random import randint, random
+from bokeh.colors import *
 
 
 class Edge:
@@ -9,7 +10,7 @@ class Edge:
 class Vertex:
     def __init__(self, value="default", **pos):
         self.value = value
-        self.color = "pink"
+        self.color = "white"
         self.pos = pos
         self.edges = []
 
@@ -42,8 +43,9 @@ class Graph:
             [debug_vertex_1, debug_vertex_2, debug_vertex_3, debug_vertex_4])
 
     def bfs(self, start):
-        random_color = "red"
-
+        random_color = "rgb({0},{1},{2})".format(randint(
+            0, 255), randint(0, 255), randint(0, 255))
+        print(random_color)
         queue = []
         found = []
 
