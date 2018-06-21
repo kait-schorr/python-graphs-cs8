@@ -11,8 +11,10 @@ WIDTH = 500
 HEIGHT = 500
 
 graph_data = Graph()
-graph_data.debug_create_test_data()
+# graph_data.debug_create_test_data()
 graph_data.bfs(graph_data.vertexes[0])
+graph_data.randomize(5, 5, 100)
+
 
 N = len(graph_data.vertexes)
 node_indices = list(range(N))
